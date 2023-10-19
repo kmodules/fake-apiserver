@@ -1,0 +1,86 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"helm.toolkit.fluxcd.io/v2beta1","kind":"HelmRelease","metadata":{"annotations":{"meta.helm.sh/release-name":"opscenter-datastore","meta.helm.sh/release-namespace":"kubeops"},"creationTimestamp":"2023-09-11T04:59:32Z","finalizers":["finalizers.fluxcd.io"],"generation":1,"labels":{"app.kubernetes.io/component":"kubedb","app.kubernetes.io/instance":"opscenter-datastore","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"featuresets.ui.k8s.appscode.com","app.kubernetes.io/part-of":"opscenter-datastore"},"name":"kubedb","namespace":"kubeops","resourceVersion":"6129","uid":"e8390e0d-e88f-49a8-a2eb-7363a6ac0231"},"spec":{"chart":{"spec":{"chart":"kubedb","reconcileStrategy":"ChartVersion","sourceRef":{"kind":"HelmRepository","name":"kubedb","namespace":"kubeops"},"version":"v2023.08.18"}},"dependsOn":[{"name":"license-proxyserver"}],"install":{"crds":"CreateReplace","createNamespace":true,"remediation":{"retries":-1}},"interval":"5m","releaseName":"kubedb","storageNamespace":"kubedb","targetNamespace":"kubedb","timeout":"30m","upgrade":{"crds":"CreateReplace","remediation":{"retries":-1}},"values":{"kubedb-autoscaler":{"enabled":true},"kubedb-dashboard":{"enabled":true},"kubedb-ops-manager":{"enabled":true},"kubedb-provisioner":{"enabled":true},"kubedb-schema-manager":{"enabled":true}}},"status":{"conditions":[{"lastTransitionTime":"2023-09-11T05:01:45Z","message":"Helm upgrade failed: another operation (install/upgrade/rollback) is in progress","reason":"UpgradeFailed","status":"False","type":"Ready"},{"lastTransitionTime":"2023-09-11T05:01:45Z","message":"Helm upgrade failed: another operation (install/upgrade/rollback) is in progress\n\nLast Helm logs:\n\napply CRDs with policy CreateReplace\nClearing REST mapper cache\npreparing upgrade for kubedb","reason":"UpgradeFailed","status":"False","type":"Released"}],"failures":11,"helmChart":"kubeops/kubeops-kubedb","lastAttemptedRevision":"v2023.08.18","lastAttemptedValuesChecksum":"c215daec611a5943cb15aba75ff2cdbb1f6ad396","lastReleaseRevision":1,"observedGeneration":1,"upgradeFailures":11}}
+    meta.helm.sh/release-name: opscenter-datastore
+    meta.helm.sh/release-namespace: kubeops
+  creationTimestamp: "2023-09-11T05:17:25Z"
+  finalizers:
+    - finalizers.fluxcd.io
+  generation: 1
+  labels:
+    app.kubernetes.io/component: kubedb
+    app.kubernetes.io/instance: opscenter-datastore
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: featuresets.ui.k8s.appscode.com
+    app.kubernetes.io/part-of: opscenter-datastore
+  name: kubedb
+  namespace: kubeops
+  resourceVersion: "8998"
+  uid: 5426af5d-543f-4cf9-80ef-9888a1937299
+spec:
+  chart:
+    spec:
+      chart: kubedb
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: kubedb
+        namespace: kubeops
+      version: v2023.08.18
+  dependsOn:
+    - name: license-proxyserver
+  install:
+    crds: CreateReplace
+    createNamespace: true
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: kubedb
+  storageNamespace: kubedb
+  targetNamespace: kubedb
+  timeout: 30m
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  values:
+    kubedb-autoscaler:
+      enabled: true
+    kubedb-dashboard:
+      enabled: true
+    kubedb-ops-manager:
+      enabled: true
+    kubedb-provisioner:
+      enabled: true
+    kubedb-schema-manager:
+      enabled: true
+status:
+  conditions:
+    - lastTransitionTime: "2023-09-11T05:30:14Z"
+      message: 'Helm upgrade failed: another operation (install/upgrade/rollback) is
+      in progress'
+      reason: UpgradeFailed
+      status: "False"
+      type: Ready
+    - lastTransitionTime: "2023-09-11T05:30:14Z"
+      message: |-
+        Helm upgrade failed: another operation (install/upgrade/rollback) is in progress
+        
+        Last Helm logs:
+        
+        apply CRDs with policy CreateReplace
+        Clearing REST mapper cache
+        preparing upgrade for kubedb
+      reason: UpgradeFailed
+      status: "False"
+      type: Released
+  failures: 5
+  helmChart: kubeops/kubeops-kubedb
+  lastAttemptedRevision: v2023.08.18
+  lastAttemptedValuesChecksum: c215daec611a5943cb15aba75ff2cdbb1f6ad396
+  lastReleaseRevision: 1
+  observedGeneration: 1
+  upgradeFailures: 5
