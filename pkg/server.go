@@ -322,7 +322,7 @@ func (s *Server) Export() ([]unstructured.Unstructured, []unstructured.Unstructu
 }
 
 func getDirtyObjects(in map[types.NamespacedName]*unstructured.Unstructured, checkedVersion int64) []unstructured.Unstructured {
-	var out []unstructured.Unstructured
+	out := make([]unstructured.Unstructured, 0, len(in))
 	for _, obj := range in {
 		rv, _ := strconv.ParseInt(obj.GetResourceVersion(), 10, 64)
 		if rv >= checkedVersion {
