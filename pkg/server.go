@@ -286,11 +286,6 @@ func (s *Server) Run() (*http.Server, *rest.Config, error) {
 	return srv, &cfg, nil
 }
 
-type APIObjects struct {
-	GVR   schema.GroupVersionResource `json:",inline,omitempty"`
-	Items []unstructured.Unstructured `json:"Items"`
-}
-
 func (s *Server) Checkpoint() {
 	s.m.Lock()
 	defer s.m.Unlock()
@@ -307,46 +302,33 @@ func (s *Server) NextResourceVersion() int64 {
 	return result
 }
 
-func (s *Server) Export() ([]APIObjects, []APIObjects) {
+func (s *Server) Export() ([]unstructured.Unstructured, []unstructured.Unstructured) {
 	s.m.Lock()
 	defer s.m.Unlock()
 
-	current := make([]APIObjects, 0, len(s.stores))
-	deleted := make([]APIObjects, 0, len(s.stores))
+	current := make([]unstructured.Unstructured, 0, len(s.stores))
+	deleted := make([]unstructured.Unstructured, 0, len(s.stores))
+
 	for _, store := range s.stores {
-		current = append(current, APIObjects{
-			GVR:   store.GVR,
-			Items: getDirtyObjects(store.Current, s.checkedVersion),
-		})
-		deleted = append(deleted, APIObjects{
-			GVR:   store.GVR,
-			Items: getDirtyObjects(store.Deleted, s.checkedVersion),
-		})
+		current = append(current, getDirtyObjects(store.Current, s.checkedVersion)...)
+		deleted = append(deleted, getDirtyObjects(store.Deleted, s.checkedVersion)...)
 	}
+
 	sort.Slice(current, func(i, j int) bool {
-		if current[i].GVR.Group != current[j].GVR.Group {
-			return current[i].GVR.Group < current[j].GVR.Group
-		}
-		return current[i].GVR.Resource != current[j].GVR.Resource
+		return atoi(current[i].GetResourceVersion()) < atoi(current[j].GetResourceVersion())
 	})
 
 	return current, deleted
 }
 
 func getDirtyObjects(in map[types.NamespacedName]*unstructured.Unstructured, checkedVersion int64) []unstructured.Unstructured {
-	out := make([]unstructured.Unstructured, 0, len(in))
+	var out []unstructured.Unstructured
 	for _, obj := range in {
 		rv, _ := strconv.ParseInt(obj.GetResourceVersion(), 10, 64)
 		if rv >= checkedVersion {
 			out = append(out, *obj)
 		}
 	}
-	sort.Slice(out, func(i, j int) bool {
-		if out[i].GetNamespace() != out[j].GetNamespace() {
-			return out[i].GetNamespace() < out[j].GetNamespace()
-		}
-		return out[i].GetName() < out[j].GetName()
-	})
 	return out
 }
 
@@ -359,4 +341,9 @@ func (s *Server) RemoveNamespace(ns string) {
 			store.RemoveForNamespace(ns)
 		}
 	}
+}
+
+func atoi(s string) int {
+	i, _ := strconv.Atoi(s)
+	return i
 }
