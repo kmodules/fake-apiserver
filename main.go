@@ -61,6 +61,10 @@ func main() {
 		klog.Fatalln(err)
 	}
 	s.Checkpoint()
+	err = resources.RegisterCRDs(restcfg)
+	if err != nil {
+		klog.Fatalln(err)
+	}
 
 	/*
 		mapper, err := apiutil.NewDiscoveryRESTMapper(restcfg)

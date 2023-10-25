@@ -18,6 +18,7 @@ require (
 	kmodules.xyz/resource-metadata v0.17.27-0.20231019125620-bf868a29e3f9
 	sigs.k8s.io/controller-runtime v0.13.1
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd
+	x-helm.dev/apimachinery v0.0.12
 )
 
 require (
@@ -120,7 +121,6 @@ require (
 	kmodules.xyz/resource-metrics v0.25.5 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
-	x-helm.dev/apimachinery v0.0.12 // indirect
 )
 
 replace github.com/Masterminds/sprig/v3 => github.com/gomodules/sprig/v3 v3.2.3-0.20220405051441-0a8a99bac1b8
