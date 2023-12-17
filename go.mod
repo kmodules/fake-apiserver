@@ -14,22 +14,22 @@ require (
 	k8s.io/client-go v0.25.3
 	k8s.io/klog/v2 v2.80.1
 	kmodules.xyz/apiversion v0.2.0
-	kmodules.xyz/client-go v0.25.39
+	kmodules.xyz/client-go v0.25.43
 	kmodules.xyz/resource-metadata v0.17.27-0.20231019125620-bf868a29e3f9
 	sigs.k8s.io/controller-runtime v0.13.1
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd
-	x-helm.dev/apimachinery v0.0.12
+	x-helm.dev/apimachinery v0.0.15
 )
 
 require (
 	github.com/Azure/go-autorest v14.2.0+incompatible // indirect
-	github.com/Azure/go-autorest/autorest v0.11.27 // indirect
-	github.com/Azure/go-autorest/autorest/adal v0.9.20 // indirect
+	github.com/Azure/go-autorest/autorest v0.11.28 // indirect
+	github.com/Azure/go-autorest/autorest/adal v0.9.21 // indirect
 	github.com/Azure/go-autorest/autorest/date v0.3.0 // indirect
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
-	github.com/golang-jwt/jwt/v4 v4.2.0 // indirect
+	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79 // indirect
@@ -118,7 +118,7 @@ require (
 	k8s.io/kube-openapi v0.0.0-20221012153701-172d655c2280 // indirect
 	k8s.io/utils v0.0.0-20221108210102-8e77b1f39fe2 // indirect
 	kmodules.xyz/offshoot-api v0.25.0 // indirect
-	kmodules.xyz/resource-metrics v0.25.5 // indirect
+	kmodules.xyz/resource-metrics v0.25.7 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )

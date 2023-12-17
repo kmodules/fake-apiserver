@@ -25,6 +25,7 @@ import (
 	"strings"
 	"sync"
 
+	meta_util "kmodules.xyz/client-go/meta"
 	rsapi "kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 	"kmodules.xyz/resource-metadata/hub"
 	"kmodules.xyz/resource-metadata/hub/resourcedescriptors"
@@ -100,7 +101,7 @@ func NewOptions(apigroups ...string) *Options {
 func NewServer(opts *Options) *Server {
 	cache := map[string]*rsapi.ResourceDescriptor{}
 	for k, rd := range resourcedescriptors.KnownDescriptors() {
-		if rsapi.IsOfficialType(rd.Spec.Resource.Group) ||
+		if meta_util.IsOfficialType(rd.Spec.Resource.Group) ||
 			opts.IncludeAPIGroups.Has(rd.Spec.Resource.Group) {
 			cache[k] = rd
 		}
