@@ -31,23 +31,7 @@ spec:
     references:
     - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
     target:
-      apiVersion: kubedb.com/v1alpha2
-      kind: Postgres
-    type: MatchRef
-  - labels:
-    - backup_via
-    references:
-    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
-    target:
-      apiVersion: kubedb.com/v1alpha2
-      kind: Redis
-    type: MatchRef
-  - labels:
-    - backup_via
-    references:
-    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
-    target:
-      apiVersion: kubedb.com/v1alpha2
+      apiVersion: kubedb.com/v1
       kind: Elasticsearch
     type: MatchRef
   - labels:
@@ -55,15 +39,7 @@ spec:
     references:
     - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
     target:
-      apiVersion: kubedb.com/v1alpha2
-      kind: Kafka
-    type: MatchRef
-  - labels:
-    - backup_via
-    references:
-    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
-    target:
-      apiVersion: kubedb.com/v1alpha2
+      apiVersion: kubedb.com/v1
       kind: MariaDB
     type: MatchRef
   - labels:
@@ -71,7 +47,7 @@ spec:
     references:
     - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
     target:
-      apiVersion: kubedb.com/v1alpha2
+      apiVersion: kubedb.com/v1
       kind: MongoDB
     type: MatchRef
   - labels:
@@ -80,6 +56,14 @@ spec:
     - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
     target:
       apiVersion: kubedb.com/v1alpha2
+      kind: MSSQLServer
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
       kind: MySQL
     type: MatchRef
   - labels:
@@ -87,7 +71,7 @@ spec:
     references:
     - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
     target:
-      apiVersion: kubedb.com/v1alpha2
+      apiVersion: kubedb.com/v1
       kind: PerconaXtraDB
     type: MatchRef
   - labels:
@@ -95,8 +79,24 @@ spec:
     references:
     - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
     target:
+      apiVersion: kubedb.com/v1
+      kind: Postgres
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: Redis
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
       apiVersion: kubedb.com/v1alpha2
-      kind: RedisSentinel
+      kind: Singlestore
     type: MatchRef
   resource:
     group: storage.kubestash.com
@@ -193,7 +193,7 @@ spec:
               description: EncryptionSecret refers to the Secret containing the encryption
                 key which will be used to encode/decode the backed up data. You can
                 refer to a Secret of a different namespace. If you don't provide the
-                namespace field, Stash will look for the Secret in the same namespace
+                namespace field, KubeStash will look for the Secret in the same namespace
                 as the BackupConfiguration / BackupBatch.
               properties:
                 name:
@@ -212,8 +212,8 @@ spec:
               type: string
             paused:
               description: Paused specifies whether the Repository is paused or not.
-                If the Repository is paused, Stash will not process any further event
-                for the Repository.
+                If the Repository is paused, KubeStash will not process any further
+                event for the Repository.
               type: boolean
             storageRef:
               description: StorageRef refers to the BackupStorage CR which contain

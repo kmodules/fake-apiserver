@@ -11,14 +11,14 @@ metadata:
 spec:
   connections:
   - labels:
-    - storage
+    - offshoot
     level: Controller
     target:
       apiVersion: storage.kubestash.com/v1alpha1
       kind: Repository
     type: OwnedBy
   - labels:
-    - offshoot
+    - storage
     namespace:
       path: metadata.namespace
     references:
@@ -26,6 +26,78 @@ spec:
     target:
       apiVersion: core.kubestash.com/v1alpha1
       kind: BackupSession
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: Elasticsearch
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: MariaDB
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: MongoDB
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1alpha2
+      kind: MSSQLServer
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: MySQL
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: PerconaXtraDB
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: Postgres
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1
+      kind: Redis
+    type: MatchRef
+  - labels:
+    - backup_via
+    references:
+    - '{.spec.appRef.name},{.spec.appRef.namespace},{.spec.appRef.kind},{.spec.appRef.apiGroup}'
+    target:
+      apiVersion: kubedb.com/v1alpha2
+      kind: Singlestore
     type: MatchRef
   resource:
     group: storage.kubestash.com
@@ -38,7 +110,7 @@ spec:
       description: Snapshot represents the state of a backup run to a particular Repository.
         Multiple components of the same target may be backed up in the same Snapshot.
         This is a namespaced CRD. It should be in the same namespace as the respective
-        Repository. Stash operator is responsible for creating Snapshot CR. Snapshot
+        Repository. KubeStash operator is responsible for creating Snapshot CR. Snapshot
         is not supposed to be created/edited by the end user.
       properties:
         apiVersion:
@@ -123,8 +195,8 @@ spec:
               type: string
             paused:
               description: Paused specifies whether the Snapshot is paused or not.
-                If the Snapshot is paused, Stash will not process any further event
-                for the Snapshot.
+                If the Snapshot is paused, KubeStash will not process any further
+                event for the Snapshot.
               type: boolean
             repository:
               description: Repository specifies the name of the Repository where this

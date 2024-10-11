@@ -68,7 +68,7 @@ spec:
                 properties:
                   labels:
                     items:
-                      description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                      description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                       enum:
                       - authn
                       - authz
@@ -85,7 +85,6 @@ spec:
                       - ocm_bind
                       - offshoot
                       - ops
-                      - placed_into
                       - policy
                       - recommended_for
                       - restore_into
@@ -153,11 +152,13 @@ spec:
                               items:
                                 type: string
                               type: array
+                              x-kubernetes-list-type: atomic
                           required:
                           - key
                           - operator
                           type: object
                         type: array
+                        x-kubernetes-list-type: atomic
                       matchLabels:
                         additionalProperties:
                           type: string
@@ -228,7 +229,7 @@ spec:
                           query:
                             properties:
                               byLabel:
-                                description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                                description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                                 enum:
                                 - authn
                                 - authz
@@ -245,7 +246,6 @@ spec:
                                 - ocm_bind
                                 - offshoot
                                 - ops
-                                - placed_into
                                 - policy
                                 - recommended_for
                                 - restore_into

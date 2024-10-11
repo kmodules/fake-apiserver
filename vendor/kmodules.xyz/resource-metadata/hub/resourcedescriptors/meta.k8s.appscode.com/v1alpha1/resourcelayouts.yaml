@@ -116,7 +116,7 @@ spec:
                 query:
                   properties:
                     byLabel:
-                      description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                      description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                       enum:
                       - authn
                       - authz
@@ -133,7 +133,6 @@ spec:
                       - ocm_bind
                       - offshoot
                       - ops
-                      - placed_into
                       - policy
                       - recommended_for
                       - restore_into
@@ -303,6 +302,12 @@ spec:
                 properties:
                   name:
                     type: string
+                  requiredFeatureSets:
+                    additionalProperties:
+                      items:
+                        type: string
+                      type: array
+                    type: object
                   sections:
                     items:
                       properties:
@@ -359,7 +364,7 @@ spec:
                               query:
                                 properties:
                                   byLabel:
-                                    description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                                    description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                                     enum:
                                     - authn
                                     - authz
@@ -376,7 +381,6 @@ spec:
                                     - ocm_bind
                                     - offshoot
                                     - ops
-                                    - placed_into
                                     - policy
                                     - recommended_for
                                     - restore_into
@@ -625,7 +629,7 @@ spec:
                             query:
                               properties:
                                 byLabel:
-                                  description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                                  description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                                   enum:
                                   - authn
                                   - authz
@@ -642,7 +646,6 @@ spec:
                                   - ocm_bind
                                   - offshoot
                                   - ops
-                                  - placed_into
                                   - policy
                                   - recommended_for
                                   - restore_into
@@ -868,7 +871,7 @@ spec:
                             query:
                               properties:
                                 byLabel:
-                                  description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                                  description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                                   enum:
                                   - authn
                                   - authz
@@ -885,7 +888,6 @@ spec:
                                   - ocm_bind
                                   - offshoot
                                   - ops
-                                  - placed_into
                                   - policy
                                   - recommended_for
                                   - restore_into
@@ -1061,6 +1063,12 @@ spec:
                           type: object
                         name:
                           type: string
+                        requiredFeatureSets:
+                          additionalProperties:
+                            items:
+                              type: string
+                            type: array
+                          type: object
                       type: object
                     type: array
                 required:
@@ -1141,7 +1149,7 @@ spec:
                 query:
                   properties:
                     byLabel:
-                      description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,placed_into,policy,recommended_for,restore_into,scaled_by,source,storage,view)
+                      description: ENUM(authn,authz,auth_secret,backup_via,catalog,cert_issuer,config,connect_via,exposed_by,event,located_on,monitored_by,ocm_bind,offshoot,ops,policy,recommended_for,restore_into,scaled_by,source,storage,view)
                       enum:
                       - authn
                       - authz
@@ -1158,7 +1166,6 @@ spec:
                       - ocm_bind
                       - offshoot
                       - ops
-                      - placed_into
                       - policy
                       - recommended_for
                       - restore_into
