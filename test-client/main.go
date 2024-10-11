@@ -21,8 +21,12 @@ import (
 	"fmt"
 
 	apps "k8s.io/api/apps/v1"
+	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/json"
 	"k8s.io/client-go/kubernetes"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
@@ -40,6 +44,9 @@ func NewClient() (client.Client, error) {
 	cfg := ctrl.GetConfigOrDie()
 	cfg.QPS = 100
 	cfg.Burst = 100
+
+	// WARNING: must be set to application/json to avoid accidentally using protobuf encoding with fake-apiserver
+	cfg.AcceptContentTypes = runtime.ContentTypeJSON
 
 	hc, err := rest.HTTPClientFor(cfg)
 	if err != nil {
@@ -98,13 +105,42 @@ func useKubebuilderClient() error {
 		return err
 	}
 
-	var list apps.DeploymentList
+	var u unstructured.Unstructured
+	raw := `{
+  "apiVersion": "v1",
+  "data": {
+    "password": "UyFCXCpkJHpEc2I9",
+    "username": "YWRtaW4="
+  },
+  "kind": "Secret",
+  "metadata": {
+    "creationTimestamp": null,
+    "name": "db-user-pass2",
+    "namespace": "default"
+  }
+}`
+	err = json.Unmarshal([]byte(raw), &u)
+	if err != nil {
+		return err
+	}
+	err = kc.Create(context.TODO(), &u)
+	if err != nil {
+		return err
+	}
+
+	var sec core.Secret
+	if err = kc.Get(context.TODO(), types.NamespacedName{Name: "db-user-pass2", Namespace: "default"}, &sec); err != nil {
+		return err
+	}
+	fmt.Println(client.ObjectKeyFromObject(&sec))
+
+	var list core.SecretList
 	err = kc.List(context.TODO(), &list)
 	if err != nil {
 		return err
 	}
-	for _, db := range list.Items {
-		fmt.Println(client.ObjectKeyFromObject(&db))
+	for _, items := range list.Items {
+		fmt.Println(client.ObjectKeyFromObject(&items))
 	}
 	return nil
 }
