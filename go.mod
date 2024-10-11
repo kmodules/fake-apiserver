@@ -9,11 +9,11 @@ require (
 	github.com/go-chi/chi/v5 v5.1.0
 	go.wandrs.dev/http v0.0.3
 	gomodules.xyz/sets v0.2.1
-	k8s.io/api v0.30.3
+	k8s.io/api v0.30.2
 	k8s.io/apiextensions-apiserver v0.30.2
-	k8s.io/apimachinery v0.30.3
-	k8s.io/apiserver v0.30.3
-	k8s.io/client-go v0.30.3
+	k8s.io/apimachinery v0.30.2
+	k8s.io/apiserver v0.30.2
+	k8s.io/client-go v0.30.2
 	k8s.io/klog/v2 v2.130.1
 	kmodules.xyz/apiversion v0.2.0
 	kmodules.xyz/client-go v0.30.27
