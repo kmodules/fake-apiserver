@@ -72,6 +72,16 @@ spec:
               - IfReady
               - Always
               type: string
+            authentication:
+              properties:
+                secretRef:
+                  properties:
+                    name:
+                      default: ""
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+              type: object
             configuration:
               properties:
                 applyConfig:
@@ -95,13 +105,20 @@ spec:
                   type: string
               type: object
               x-kubernetes-map-type: atomic
+            forceFailOver:
+              properties:
+                candidates:
+                  items:
+                    type: string
+                  type: array
+              type: object
             horizontalScaling:
               properties:
                 replicas:
                   format: int32
                   type: integer
                 standbyMode:
-                  default: Warm
+                  default: Hot
                   enum:
                   - Hot
                   - Warm
@@ -113,7 +130,19 @@ spec:
                   - Asynchronous
                   type: string
               type: object
+            reconnectStandby:
+              properties:
+                readyTimeOut:
+                  type: string
+              type: object
             restart:
+              type: object
+            setRaftKeyPair:
+              properties:
+                keyPair:
+                  additionalProperties:
+                    type: string
+                  type: object
               type: object
             timeout:
               type: string
@@ -247,6 +276,10 @@ spec:
               - Restart
               - Reconfigure
               - ReconfigureTLS
+              - RotateAuth
+              - ReconnectStandby
+              - ForceFailOver
+              - SetRaftKeyPair
               type: string
             updateVersion:
               properties:
