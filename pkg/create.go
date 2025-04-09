@@ -31,6 +31,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilrand "k8s.io/apimachinery/pkg/util/rand"
+	"k8s.io/klog/v2"
 )
 
 func (s *Server) Create(w http.ResponseWriter, r *http.Request) {
@@ -61,10 +62,13 @@ func (s *Server) CreateImpl(store *APIStorage, codec runtime.Codec, r *http.Requ
 	}
 
 	var obj unstructured.Unstructured
+	klog.Infof("aaaaaaaaaaaaaaaa: %v %v", string(data), store.GVK)
 	_, _, err = codec.Decode(data, &store.GVK, &obj)
 	if err != nil {
 		return nil, err
 	}
+
+	klog.Infof("bbbbbbbbbbbbbbbbb: %v", obj)
 	if obj.GetGenerateName() != "" {
 		obj.SetName(fmt.Sprintf("%s-%s", obj.GetGenerateName(), utilrand.String(6)))
 	}

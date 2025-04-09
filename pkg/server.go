@@ -178,7 +178,12 @@ func (s *Server) encoder(w http.ResponseWriter, r *http.Request) runtime.Encoder
 	if err != nil {
 		panic(err)
 	}
+	if outputMediaType.Accepted.MediaType == runtime.ContentTypeProtobuf {
+		outputMediaType.Accepted = s.opts.NegotiatedSerializer.SupportedMediaTypes()[0]
+	}
 	w.Header().Set("Content-Type", outputMediaType.Accepted.MediaType)
+
+	klog.Infof("eeeeeeeeeeeeeeeeeeeeee %v ", outputMediaType.Accepted.MediaType)
 	return outputMediaType.Accepted.Serializer
 }
 
@@ -187,6 +192,11 @@ func (s *Server) decoder(r *http.Request) runtime.Decoder {
 	if err != nil {
 		panic(err)
 	}
+
+	if info.MediaType == runtime.ContentTypeProtobuf {
+		info = s.opts.NegotiatedSerializer.SupportedMediaTypes()[0]
+	}
+	klog.Infof("ddddddddddddddddddddddddd %v ", info.MediaType)
 	return info.Serializer
 }
 
