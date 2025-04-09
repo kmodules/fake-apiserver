@@ -174,7 +174,7 @@ func (s *Server) Register(m chi.Router) {
 }
 
 func (s *Server) encoder(w http.ResponseWriter, r *http.Request) runtime.Encoder {
-	outputMediaType, _, err := negotiation.NegotiateOutputMediaType(r, s.opts.NegotiatedSerializer, negotiation.DefaultEndpointRestrictions)
+	outputMediaType, _, err := negotiation.NegotiateOutputMediaType(r, OutputSerializer{delegate: s.opts.NegotiatedSerializer}, negotiation.DefaultEndpointRestrictions)
 	if err != nil {
 		panic(err)
 	}
@@ -350,4 +350,29 @@ func (s *Server) RemoveNamespace(ns string) {
 func atoi(s string) int {
 	i, _ := strconv.Atoi(s)
 	return i
+}
+
+type OutputSerializer struct {
+	delegate runtime.NegotiatedSerializer
+}
+
+var _ runtime.NegotiatedSerializer = &OutputSerializer{}
+
+func (o OutputSerializer) SupportedMediaTypes() []runtime.SerializerInfo {
+	a := o.delegate.SupportedMediaTypes()
+	b := a[:0]
+	for _, x := range a {
+		if x.MediaType != runtime.ContentTypeProtobuf {
+			b = append(b, x)
+		}
+	}
+	return b
+}
+
+func (o OutputSerializer) EncoderForVersion(serializer runtime.Encoder, gv runtime.GroupVersioner) runtime.Encoder {
+	return o.delegate.EncoderForVersion(serializer, gv)
+}
+
+func (o OutputSerializer) DecoderToVersion(serializer runtime.Decoder, gv runtime.GroupVersioner) runtime.Decoder {
+	return o.delegate.DecoderToVersion(serializer, gv)
 }
