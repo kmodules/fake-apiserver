@@ -181,6 +181,7 @@ func (s *Server) encoder(w http.ResponseWriter, r *http.Request) runtime.Encoder
 		panic(err)
 	}
 	w.Header().Set("Content-Type", outputMediaType.Accepted.MediaType)
+	klog.Infof("MediaType = %v", outputMediaType.Accepted.MediaType)
 	return outputMediaType.Accepted.Serializer
 }
 
