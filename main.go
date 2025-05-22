@@ -34,13 +34,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/klog/v2"
+	driversapi "x-helm.dev/apimachinery/apis/drivers/v1alpha1"
 )
 
 func main() {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	s := pkg.NewServer(pkg.NewOptions())
+	s := pkg.NewServer(pkg.NewOptions(driversapi.GroupVersion.Group))
 	srv, restcfg, err := s.Run()
 	if err != nil {
 		klog.Fatalln(err)
