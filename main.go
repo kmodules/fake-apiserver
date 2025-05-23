@@ -26,6 +26,7 @@ import (
 	"syscall"
 	"time"
 
+	"kmodules.xyz/client-go/apiextensions"
 	"kmodules.xyz/client-go/tools/clientcmd"
 	"kmodules.xyz/fake-apiserver/pkg"
 	"kmodules.xyz/fake-apiserver/pkg/resources"
@@ -41,7 +42,7 @@ func main() {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	s := pkg.NewServer(pkg.NewOptions(driversapi.GroupVersion.Group))
+	s := pkg.NewServer(pkg.NewOptions(driversapi.GroupVersion.Group, "project.openshift.io"))
 	srv, restcfg, err := s.Run()
 	if err != nil {
 		klog.Fatalln(err)
@@ -62,7 +63,9 @@ func main() {
 		klog.Fatalln(err)
 	}
 	s.Checkpoint()
-	err = resources.RegisterCRDs(restcfg)
+	err = resources.RegisterCRDs(restcfg, []*apiextensions.CustomResourceDefinition{
+		driversapi.AppRelease{}.CustomResourceDefinition(),
+	})
 	if err != nil {
 		klog.Fatalln(err)
 	}
