@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/evanphx/json-patch v5.9.11+incompatible
-	github.com/go-chi/chi/v5 v5.2.1
+	github.com/go-chi/chi/v5 v5.2.2
 	go.wandrs.dev/http v0.0.4
 	gomodules.xyz/sets v0.2.1
 	k8s.io/api v0.32.3
