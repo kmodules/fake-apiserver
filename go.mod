@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/evanphx/json-patch v5.9.11+incompatible
-	github.com/go-chi/chi/v5 v5.2.2
+	github.com/go-chi/chi/v5 v5.2.5
 	go.wandrs.dev/http v0.0.4
 	gomodules.xyz/sets v0.2.1
 	k8s.io/api v0.34.3
