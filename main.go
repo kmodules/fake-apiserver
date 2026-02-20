@@ -42,7 +42,7 @@ func main() {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	s := pkg.NewServer(pkg.NewOptions(driversapi.GroupVersion.Group, "project.openshift.io"))
+	s := pkg.NewServer(pkg.NewOptions(false, driversapi.GroupVersion.Group))
 	srv, restcfg, err := s.Run()
 	if err != nil {
 		klog.Fatalln(err)
