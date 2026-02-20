@@ -15,7 +15,7 @@ require (
 	k8s.io/klog/v2 v2.130.1
 	kmodules.xyz/apiversion v0.2.0
 	kmodules.xyz/client-go v0.34.2
-	kmodules.xyz/resource-metadata v0.42.2
+	kmodules.xyz/resource-metadata v0.42.3
 	sigs.k8s.io/controller-runtime v0.22.4
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730
 	x-helm.dev/apimachinery v0.0.18
