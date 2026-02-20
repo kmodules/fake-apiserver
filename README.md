@@ -46,6 +46,13 @@ helm install kubedb appscode/kubedb \
   --wait-for-jobs=false
 ```
 
+***crd***
+
+```console
+k create -f examples/crds/cert-manager.io_clusterissuers.yaml --validate=false
+k create -f examples/crds/clusterissuer.yaml --validate=false
+```
+
 ToDos:
 
 - [ ] status
