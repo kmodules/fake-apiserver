@@ -23,9 +23,9 @@ import (
 	"kmodules.xyz/apiversion"
 	"kmodules.xyz/resource-metadata/apis/meta/v1alpha1"
 
-	"gomodules.xyz/sets"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/sets"
 )
 
 func (s *Server) APIGroupList(w http.ResponseWriter, r *http.Request) {

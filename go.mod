@@ -6,7 +6,6 @@ require (
 	github.com/evanphx/json-patch v5.9.11+incompatible
 	github.com/go-chi/chi/v5 v5.2.5
 	go.wandrs.dev/http v0.0.4
-	gomodules.xyz/sets v0.2.1
 	k8s.io/api v0.34.3
 	k8s.io/apiextensions-apiserver v0.34.3
 	k8s.io/apimachinery v0.34.3
@@ -15,7 +14,7 @@ require (
 	k8s.io/klog/v2 v2.130.1
 	kmodules.xyz/apiversion v0.2.0
 	kmodules.xyz/client-go v0.34.2
-	kmodules.xyz/resource-metadata v0.41.3
+	kmodules.xyz/resource-metadata v0.42.3
 	sigs.k8s.io/controller-runtime v0.22.4
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730
 	x-helm.dev/apimachinery v0.0.18
@@ -122,6 +121,7 @@ require (
 	gomodules.xyz/jsonpath v0.0.2 // indirect
 	gomodules.xyz/mergo v0.3.13 // indirect
 	gomodules.xyz/pointer v0.1.0 // indirect
+	gomodules.xyz/sets v0.2.1 // indirect
 	gomodules.xyz/x v0.0.17 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect

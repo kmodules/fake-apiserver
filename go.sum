@@ -348,8 +348,8 @@ kmodules.xyz/go-containerregistry v0.0.15 h1:PRY5FDOzb6u23KOulQ4SWNdeUkBKmezLyJX
 kmodules.xyz/go-containerregistry v0.0.15/go.mod h1:rO0DEbYYEu1BfVcZ1pXV+3RgzVXr/k5hXcO+BQYVVDI=
 kmodules.xyz/offshoot-api v0.34.0 h1:HnOOp8FrCjTWjtNApRDo6Ahe79tOlLrJmyye4xxO4Kk=
 kmodules.xyz/offshoot-api v0.34.0/go.mod h1:F+B59yYw4CZJ4uD4xu6C+mMLzIXUtuH7E+SbDICl9jE=
-kmodules.xyz/resource-metadata v0.41.3 h1:kNEjkfopcczSOBiozw/e/izUzQOWU/3s46f6zOcJ5q4=
-kmodules.xyz/resource-metadata v0.41.3/go.mod h1:xntcQko2QLbLEHwGE4TQ7I/80fcBQzcexbep97Akstk=
+kmodules.xyz/resource-metadata v0.42.3 h1:fnQ8acF3IrkODn+Xh01Lu6fQKHR+7EvJz6TfK7rslhU=
+kmodules.xyz/resource-metadata v0.42.3/go.mod h1:xntcQko2QLbLEHwGE4TQ7I/80fcBQzcexbep97Akstk=
 kmodules.xyz/resource-metrics v0.34.0 h1:cqscgTx3PONxHj6PIySK3sTlKKv8iKTGzRd+S6YSwXg=
 kmodules.xyz/resource-metrics v0.34.0/go.mod h1:R34IKtp5+NqcQz7AQJheBJK6Iem0LqrCbm/55Mn+ECQ=
 sigs.k8s.io/controller-runtime v0.22.4 h1:GEjV7KV3TY8e+tJ2LCTxUTanW4z/FmNB7l327UfMq9A=
