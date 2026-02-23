@@ -55,7 +55,7 @@ type Options struct {
 	NegotiatedSerializer runtime.NegotiatedSerializer
 	// ParameterCodec performs conversions for query parameters passed to API calls
 	ParameterCodec   runtime.ParameterCodec
-	IncludeAPIGroups sets.String
+	IncludeAPIGroups sets.Set[string]
 }
 
 type Server struct {
@@ -92,7 +92,7 @@ func NewOptions(fakeOpenShift bool, apigroups ...string) *Options {
 		&metav1.APIResourceList{},
 	)
 
-	includeAPIGroups := sets.NewString(apigroups...)
+	includeAPIGroups := sets.New[string](apigroups...)
 	if fakeOpenShift {
 		includeAPIGroups.Insert("project.openshift.io")
 	}
