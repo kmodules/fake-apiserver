@@ -8,10 +8,11 @@ func (ref *ChartSourceRef) SetDefaults() *ChartSourceRef {
 	if ref.SourceRef.APIGroup == "" {
 		ref.SourceRef.APIGroup = SourceGroupHelmRepository
 	}
-	switch ref.SourceRef.Kind {
-	case "":
+	if ref.SourceRef.Kind == "" {
 		ref.SourceRef.Kind = SourceKindHelmRepository
-	case SourceKindLegacy, SourceKindLocal, SourceKindEmbed:
+	} else if ref.SourceRef.Kind == SourceKindLegacy ||
+		ref.SourceRef.Kind == SourceKindLocal ||
+		ref.SourceRef.Kind == SourceKindEmbed {
 		ref.SourceRef.APIGroup = SourceGroupLegacy
 	}
 	return ref

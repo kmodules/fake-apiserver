@@ -1,6 +1,7 @@
 apiVersion: meta.k8s.appscode.com/v1alpha1
 kind: ResourceDescriptor
 metadata:
+  creationTimestamp: null
   labels:
     k8s.io/group: catalog.kubevault.com
     k8s.io/kind: VaultServerVersion
@@ -64,12 +65,6 @@ spec:
               description: Deprecated versions usable but regarded as obsolete and
                 best avoided, typically due to having been superseded.
               type: boolean
-            distribution:
-              description: Distribution
-              enum:
-              - Vault
-              - OpenBao
-              type: string
             exporter:
               description: Exporter Image
               properties:

@@ -1,6 +1,7 @@
 apiVersion: meta.k8s.appscode.com/v1alpha1
 kind: ResourceDescriptor
 metadata:
+  creationTimestamp: null
   labels:
     k8s.io/group: catalog.kubedb.com
     k8s.io/kind: MongoDBVersion
@@ -123,8 +124,6 @@ spec:
               - KubeDB
               - MongoDB
               type: string
-            endOfLife:
-              type: boolean
             exporter:
               properties:
                 image:

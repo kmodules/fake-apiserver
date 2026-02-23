@@ -44,7 +44,7 @@ func ResourceHash(obj metav1.Object) string {
 // ObjectHash includes all top label fields (like data, spec) except TypeMeta, ObjectMeta and Status
 // also includes Generation, Annotation and Labels form ObjectMeta
 func ObjectHash(in metav1.Object) string {
-	obj := make(map[string]any)
+	obj := make(map[string]interface{})
 
 	obj["generation"] = in.GetGeneration()
 	if len(in.GetLabels()) > 0 {
@@ -84,7 +84,7 @@ func ObjectHash(in metav1.Object) string {
 }
 
 func GenerationHash(in metav1.Object) string {
-	obj := make(map[string]any, 3)
+	obj := make(map[string]interface{}, 3)
 	obj["generation"] = in.GetGeneration()
 	if len(in.GetLabels()) > 0 {
 		obj["labels"] = in.GetLabels()
@@ -106,7 +106,7 @@ func GenerationHash(in metav1.Object) string {
 // DeepHashObject writes specified object to hash using the spew library
 // which follows pointers and prints actual values of the nested objects
 // ensuring the hash does not change when a pointer changes.
-func DeepHashObject(hasher hash.Hash, objectToWrite any) {
+func DeepHashObject(hasher hash.Hash, objectToWrite interface{}) {
 	hasher.Reset()
 	printer := spew.ConfigState{
 		Indent:         " ",
@@ -114,10 +114,10 @@ func DeepHashObject(hasher hash.Hash, objectToWrite any) {
 		DisableMethods: true,
 		SpewKeys:       true,
 	}
-	_, _ = printer.Fprintf(hasher, "%#v", objectToWrite)
+	printer.Fprintf(hasher, "%#v", objectToWrite)
 }
 
-func MustAlreadyReconciled(o any) bool {
+func MustAlreadyReconciled(o interface{}) bool {
 	reconciled, err := AlreadyReconciled(o)
 	if err != nil {
 		panic("failed to extract status.observedGeneration field due to err:" + err.Error())
@@ -125,7 +125,7 @@ func MustAlreadyReconciled(o any) bool {
 	return reconciled
 }
 
-func AlreadyReconciled(o any) (bool, error) {
+func AlreadyReconciled(o interface{}) (bool, error) {
 	var generation, observedGeneration int64
 	var err error
 

@@ -29,14 +29,14 @@ import (
 
 var json = jsoniter.ConfigFastest
 
-func toJson(v any) ([]byte, error) {
+func toJson(v interface{}) ([]byte, error) {
 	if u, ok := v.([]byte); ok {
 		return u, nil
 	}
 	return json.Marshal(v)
 }
 
-func CreateStrategicPatch(cur any, mod any, fns ...mergepatch.PreconditionFunc) ([]byte, error) {
+func CreateStrategicPatch(cur interface{}, mod interface{}, fns ...mergepatch.PreconditionFunc) ([]byte, error) {
 	curJson, err := toJson(cur)
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func CreateStrategicPatch(cur any, mod any, fns ...mergepatch.PreconditionFunc) 
 	return strategicpatch.CreateTwoWayMergePatch(curJson, modJson, mod, fns...)
 }
 
-func CreateJSONMergePatch(cur any, mod any, fns ...mergepatch.PreconditionFunc) ([]byte, error) {
+func CreateJSONMergePatch(cur interface{}, mod interface{}, fns ...mergepatch.PreconditionFunc) ([]byte, error) {
 	curJson, err := toJson(cur)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func CreateJSONMergePatch(cur any, mod any, fns ...mergepatch.PreconditionFunc) 
 	return patch, nil
 }
 
-func CreateJSONPatch(cur any, mod any) ([]byte, error) {
+func CreateJSONPatch(cur interface{}, mod interface{}) ([]byte, error) {
 	curJson, err := toJson(cur)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ func CreateJSONPatch(cur any, mod any) ([]byte, error) {
 // Apply the preconditions to the patch, and return an error if any of them fail.
 // ref: https://github.com/kubernetes/apimachinery/blob/master/pkg/util/jsonmergepatch/patch.go#L74
 func meetPreconditions(patch []byte, fns ...mergepatch.PreconditionFunc) error {
-	var patchMap map[string]any
+	var patchMap map[string]interface{}
 	if err := json.Unmarshal(patch, &patchMap); err != nil {
 		return fmt.Errorf("failed to unmarshal patch for precondition check: %s", patch)
 	}
@@ -115,8 +115,8 @@ func meetPreconditions(patch []byte, fns ...mergepatch.PreconditionFunc) error {
 // ref: https://github.com/kubernetes/apimachinery/blob/master/pkg/util/mergepatch/util.go#L30
 
 func RequireChainKeyUnchanged(key string) mergepatch.PreconditionFunc {
-	return func(patch any) bool {
-		patchMap, ok := patch.(map[string]any)
+	return func(patch interface{}) bool {
+		patchMap, ok := patch.(map[string]interface{})
 		if !ok {
 			fmt.Println("Invalid data")
 			return true
@@ -125,7 +125,7 @@ func RequireChainKeyUnchanged(key string) mergepatch.PreconditionFunc {
 	}
 }
 
-func checkChainKeyUnchanged(key string, mapData map[string]any) bool {
+func checkChainKeyUnchanged(key string, mapData map[string]interface{}) bool {
 	keys := strings.Split(key, ".")
 
 	newKey := strings.Join(keys[1:], ".")
@@ -134,7 +134,7 @@ func checkChainKeyUnchanged(key string, mapData map[string]any) bool {
 			return true
 		}
 		for _, val := range mapData {
-			if !checkChainKeyUnchanged(newKey, val.(map[string]any)) {
+			if !checkChainKeyUnchanged(newKey, val.(map[string]interface{})) {
 				return false
 			}
 		}
@@ -143,13 +143,13 @@ func checkChainKeyUnchanged(key string, mapData map[string]any) bool {
 		if !ok || len(keys) == 1 {
 			return !ok
 		}
-		if x, ok := values.([]any); ok {
+		if x, ok := values.([]interface{}); ok {
 			// x is of type []Interface
 			for _, val := range x {
-				return checkChainKeyUnchanged(newKey, val.(map[string]any))
+				return checkChainKeyUnchanged(newKey, val.(map[string]interface{}))
 			}
 		}
-		return checkChainKeyUnchanged(newKey, values.(map[string]any))
+		return checkChainKeyUnchanged(newKey, values.(map[string]interface{}))
 	}
 	return true
 }

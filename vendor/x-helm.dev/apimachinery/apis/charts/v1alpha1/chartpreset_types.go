@@ -52,6 +52,6 @@ func init() {
 	SchemeBuilder.Register(&ChartPreset{}, &ChartPresetList{})
 }
 
-func (ChartPreset) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (_ ChartPreset) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(GroupVersion.WithResource(ResourceChartPresets))
 }

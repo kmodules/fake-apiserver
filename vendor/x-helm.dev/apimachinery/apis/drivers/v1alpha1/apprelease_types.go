@@ -4,10 +4,9 @@
 package v1alpha1
 
 import (
+	"k8s.io/apimachinery/pkg/runtime"
 	"regexp"
 	"strings"
-
-	"k8s.io/apimachinery/pkg/runtime"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"kmodules.xyz/client-go/apiextensions"
@@ -159,7 +158,7 @@ func init() {
 	SchemeBuilder.Register(&AppRelease{}, &AppReleaseList{})
 }
 
-func (AppRelease) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (_ AppRelease) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(GroupVersion.WithResource(ResourceAppReleases))
 }
 

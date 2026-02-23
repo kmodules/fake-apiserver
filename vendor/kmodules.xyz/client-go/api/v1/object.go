@@ -158,8 +158,8 @@ func MustParseObjectID(key OID) *ObjectID {
 	return oid
 }
 
-func ObjectIDMap(key OID) (map[string]any, error) {
-	id := map[string]any{
+func ObjectIDMap(key OID) (map[string]interface{}, error) {
+	id := map[string]interface{}{
 		"group":     "",
 		"kind":      "",
 		"namespace": "",

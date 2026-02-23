@@ -1,6 +1,7 @@
 apiVersion: meta.k8s.appscode.com/v1alpha1
 kind: ResourceDescriptor
 metadata:
+  creationTimestamp: null
   labels:
     k8s.io/group: ops.kubedb.com
     k8s.io/kind: ElasticsearchOpsRequest
@@ -163,10 +164,6 @@ spec:
                       type: integer
                   type: object
               type: object
-            maxRetries:
-              default: 1
-              format: int32
-              type: integer
             restart:
               type: object
             timeout:
