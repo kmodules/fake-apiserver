@@ -85,7 +85,8 @@ func NewOptions(fakeOpenShift bool, apigroups ...string) *Options {
 
 	// TODO: keep the generic API server from wanting this
 	unversioned := schema.GroupVersion{Group: "", Version: "v1"}
-	scheme.AddUnversionedTypes(unversioned,
+	scheme.AddUnversionedTypes(
+		unversioned,
 		&metav1.Status{},
 		&metav1.APIVersions{},
 		&metav1.APIGroupList{},
